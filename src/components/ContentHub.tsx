@@ -34,9 +34,9 @@ const ContentHub = () => {
             Dive deeper into the insights with additional content formats.
           </p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 max-w-5xl mx-auto">
           <ContentCard icon={<PlayCircleIcon size={40} />} title="Video Insights" description="Watch our experts break down key findings from the 2025 State of Enterprise Report." linkText="Watch Videos" />
-          <ContentCard icon={<MicIcon size={40} />} title="Podcast Series" description="Listen to in-depth discussions about Nigeria's Financial and Professional Services sector." linkText="Listen Now" />
+          {/* <ContentCard icon={<MicIcon size={40} />} title="Podcast Series" description="Listen to in-depth discussions about Nigeria's Financial and Professional Services sector." linkText="Listen Now" /> */}
           <ContentCard icon={<BarChart2Icon size={40} />} title="Interactive Data" description="Explore the data behind the report with our interactive visualizations." linkText="Explore Data" />
         </div>
       </div>

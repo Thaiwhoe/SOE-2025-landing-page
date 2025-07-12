@@ -4,7 +4,7 @@ import { DownloadIcon } from 'lucide-react';
 
 import Cover_2022 from '../assets/Report Gallery Covers 2022.jpg';
 import Cover_2023 from '../assets/Report Gallery Covers 2023.jpg';
-import Cover_2024 from '../assets/Report Gallery Covers 2025.jpg';
+import Cover_2024 from '../assets/Report Gallery Covers 2024.jpg';
 
 interface ReportCardProps {
   year: string;
