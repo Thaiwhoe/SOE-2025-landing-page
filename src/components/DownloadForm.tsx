@@ -7,11 +7,30 @@ import SOE_2025 from '../assets/SOE 2025.png';
 
 const DownloadForm = forwardRef<HTMLDivElement> ((props, ref) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const handleSubmit = (e: React.FormEvent) => {
+  // const handleSubmit = (e: React.FormEvent) => {
+  //   e.preventDefault();
+  //   // Here you would handle the form submission, e.g., with an API call
+  //   setIsSubmitted(true);
+  // };
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Here you would handle the form submission, e.g., with an API call
     setIsSubmitted(true);
-  };
+
+    const formData = Object.fromEntries(new FormData(e.currentTarget));
+    const payload = Object.fromEntries(
+    Object.entries(formData).map(([k, v]) => [k, (v as string).trim()])
+  );
+    const res = await fetch("/api/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (res.ok) alert("Check your inbox for the PDF!");
+    else alert("Oops—please try again.");
+    setIsSubmitted(false);
+  }
+
+
   return <section ref={ref} className="py-12 md:py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4">
         <div className="max-w-5xl mx-auto">
@@ -33,26 +52,26 @@ const DownloadForm = forwardRef<HTMLDivElement> ((props, ref) => {
                           <label htmlFor="name" className="block text-sm font-medium text-white mb-1">
                             Full Name
                           </label>
-                          <input type="text" id="name" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter your full name" required />
+                          <input type="text" name="name" id="name" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter your full name" required />
                         </div>
                         <div>
                           <label htmlFor="email" className="block text-sm font-medium text-white mb-1">
                             Email Address
                           </label>
-                          <input type="email" id="email" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter your email address" required />
+                          <input type="email" name="email" id="email" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter your email address" required />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
                             <label htmlFor="company" className="block text-sm font-medium text-white mb-1">
                               Company
                             </label>
-                            <input type="text" id="company" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter company name" required />
+                            <input type="text" name="company" id="company" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter company name" required />
                           </div>
                           <div>
                             <label htmlFor="jobTitle" className="block text-sm font-medium text-white mb-1">
                               Job Title
                             </label>
-                            <input type="text" id="jobTitle" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter job title" required />
+                            <input type="text" name="jobTitle" id="jobTitle" className="w-full px-4 py-3 md:py-2 rounded-md border-0 focus:ring-2 focus:ring-[#01b71c] text-base" placeholder="Enter job title" required />
                           </div>
                         </div>
                       </div>

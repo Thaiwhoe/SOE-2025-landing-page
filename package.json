@@ -2,15 +2,20 @@
   "name": "SOE Report Landing Page",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "scripts": {
-    "dev": "npx vite",
-    "build": "npx vite build",
+    "build": "vite build --outDir public && tsc -p tsconfig.server.json",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "preview": "npx vite preview"
+    "preview": "npx vite preview",
+    "start": "node dist/server.js",
+    "dev": "concurrently \"vite\" \"nodemon --watch src --ext ts --exec ts-node --project tsconfig.server.json src/server.ts\""
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.0",
+    "express": "^5.1.0",
     "lucide-react": "^0.441.0",
+    "mongodb": "^6.17.0",
+    "nodemailer": "^7.0.5",
     "react": "^18.3.1",
     "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
@@ -18,19 +23,25 @@
     "react-scripts": "^5.0.1"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^4.17.23",
     "@types/node": "^20.11.18",
+    "@types/nodemailer": "^6.4.17",
     "@types/react": "^18.3.1",
     "@types/react-dom": "^18.3.1",
     "@typescript-eslint/eslint-plugin": "^5.54.0",
     "@typescript-eslint/parser": "^5.54.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "latest",
+    "concurrently": "^9.2.0",
     "eslint": "^8.50.0",
     "eslint-plugin-react-hooks": "^4.6.0",
     "eslint-plugin-react-refresh": "^0.4.1",
+    "nodemon": "^3.1.10",
     "postcss": "latest",
     "tailwindcss": "3.4.17",
-    "typescript": "^4.9.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
     "vite": "^5.2.0"
   },
   "browserslist": {

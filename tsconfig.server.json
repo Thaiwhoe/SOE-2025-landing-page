@@ -1,0 +1,18 @@
+// tsconfig.server.json ─ backend only
+{
+  "extends": "./tsconfig.json",           // re‑use base settings
+  "compilerOptions": {
+    "module": "CommonJS",                 // Node understands CJS best
+    "target": "ES2020",
+    "moduleResolution": "node",          // 'node' or 'nodenext' are OK
+    "allowImportingTsExtensions": true,  // now recognised
+    "rootDir": "src",                     // where server.ts lives
+    "outDir": "dist",                     // compiled JS ends up here
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]                     // Node globals (process, __dirname…)
+  },
+  "include": ["src/server.ts"],           // or ["src/**/*.ts"] if you add more API files
+  "exclude": ["src/**/*.tsx"]             // skip React components
+}
