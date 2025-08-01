@@ -10,12 +10,22 @@ interface ReportCardProps {
   year: string;
   imageSrc: string;
   title: string;
+  downloadUrl: string;
 }
 const ReportCard: React.FC<ReportCardProps> = ({
   year,
   imageSrc,
-  title
+  title,
+  downloadUrl,
 }) => {
+  const handleDownload = (url: string) => {
+  const link = document.createElement('a');
+  link.href = url;
+  link.setAttribute('download', url.split('/').pop() || 'report.pdf');
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+};
   return <div className="bg-white rounded-lg overflow-hidden shadow-md transition-transform hover:shadow-lg hover:-translate-y-1">
       <div className="relative aspect-[3/4] bg-gray-100">
         <img src={imageSrc} alt={`${year} State of Enterprise Report`} className="w-full h-full object-cover" />
@@ -25,7 +35,7 @@ const ReportCard: React.FC<ReportCardProps> = ({
       </div>
       <div className="p-4">
         <h3 className="font-bold text-lg text-[#01562c] mb-2">{title}</h3>
-        <Button variant="outline" size="sm" className="w-full">
+        <Button variant="outline" size="sm" className="w-full" onClick={() => handleDownload(downloadUrl)}>
           <DownloadIcon size={16} className="mr-2" />
           Download Report
         </Button>
@@ -36,15 +46,18 @@ const ReportGallery = forwardRef<HTMLDivElement> ((props, ref) => {
   const reports = [{
     year: '2024',
     imageSrc: `${Cover_2024}`,
-    title: 'State of Enterprise 2024 Report'
+    title: 'State of Enterprise 2024 Report',
+    downloadUrl: '/State_of_Enterprise_2024_Report.pdf',
   }, {
     year: '2023',
     imageSrc: `${Cover_2023}`,
-    title: 'State of Enterprise 2023 Report'
+    title: 'State of Enterprise 2023 Report',
+    downloadUrl: '/State_of_Enterprise_2023_Report.pdf',
   }, {
     year: '2022',
     imageSrc: `${Cover_2022}`,
-    title: 'State of Enterprise 2022 Report'
+    title: 'State of Enterprise 2022 Report',
+    downloadUrl: '/State_of_Enterprise_2022_Report.pdf',
   }];
   return <section ref={ref} className="py-12 md:py-16 lg:py-24 bg-white">
       <div className="container mx-auto px-4">
@@ -58,7 +71,12 @@ const ReportGallery = forwardRef<HTMLDivElement> ((props, ref) => {
           </p>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-5xl mx-auto">
-          {reports.map(report => <ReportCard key={report.year} year={report.year} imageSrc={report.imageSrc} title={report.title} />)}
+          {reports.map(report => <ReportCard 
+          key={report.year} 
+          year={report.year} 
+          imageSrc={report.imageSrc} 
+          title={report.title} 
+          downloadUrl={report.downloadUrl}/>)}
         </div>
       </div>
     </section>;
